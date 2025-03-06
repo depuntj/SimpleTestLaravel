@@ -91,7 +91,7 @@
                         </table>
                     </div>
                     <div class="mt-3">
-                        {{ $sales->links() }}
+                        {{ $sales->links('pagination::bootstrap-4') }}
                     </div>
                 @else
                     <p class="text-center">No sales found matching the criteria.</p>

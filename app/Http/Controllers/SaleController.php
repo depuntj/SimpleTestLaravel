@@ -136,7 +136,7 @@ class SaleController extends Controller
         ];
 
         $monthlySales = $salesQuery->select(
-                DB::raw('DATE_FORMAT(sale_date, "%Y-%m") as month'),
+                DB::raw("TO_CHAR(sale_date, 'YYYY-MM') as month"),
                 DB::raw('SUM(quantity) as total_quantity'),
                 DB::raw('SUM(total_price) as total_revenue'),
                 DB::raw('COUNT(*) as sale_count')
