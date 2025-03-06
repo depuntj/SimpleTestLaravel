@@ -45,6 +45,8 @@ class CustomerController extends Controller
             'email' => 'required|string|email|max:255|unique:customers',
             'phone' => 'required|string|max:20',
             'address' => 'required|string',
+            'location' => 'nullable|string|max:100',
+            'category' => 'nullable|string|max:100',
         ]);
 
         Customer::create($validated);
@@ -79,6 +81,8 @@ class CustomerController extends Controller
             'email' => 'required|string|email|max:255|unique:customers,email,'.$customer->id,
             'phone' => 'required|string|max:20',
             'address' => 'required|string',
+            'location' => 'nullable|string|max:100',
+            'category' => 'nullable|string|max:100',
         ]);
 
         $customer->update($validated);
@@ -96,5 +100,23 @@ class CustomerController extends Controller
 
         return redirect()->route('customers.index')
                         ->with('success', 'Customer deleted successfully.');
+    }
+    
+    /**
+     * Display customers grouped by location or category.
+     */
+    public function group(Request $request): View
+    {
+        $groupBy = $request->input('group_by', 'location');
+        $validGroupBy = in_array($groupBy, ['location', 'category']) ? $groupBy : 'location';
+
+        $customers = Customer::whereNotNull($validGroupBy)
+                         ->orderBy($validGroupBy)
+                         ->orderBy('name')
+                         ->get();
+
+        $groupedCustomers = $customers->groupBy($validGroupBy);
+
+        return view('customers.group', compact('groupedCustomers', 'groupBy'));
     }
 }

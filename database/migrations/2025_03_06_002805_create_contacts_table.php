@@ -8,16 +8,16 @@ return new class extends Migration
 {
 
     public function up(): void
-{
-    Schema::create('contacts', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('customer_id')->constrained()->onDelete('cascade');
-        $table->string('name');
-        $table->string('email');
-        $table->string('phone');
-        $table->timestamps();
-    });
-}
+    {
+        Schema::create('contacts', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('customer_id')->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->string('email');
+            $table->string('phone');
+            $table->timestamps();
+        });
+    }
 
     public function down(): void
     {

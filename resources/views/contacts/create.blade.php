@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create New Customer</title>
+    <title>Create New Contact</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container mt-4">
         <div class="row mb-3">
             <div class="col-md-6">
-                <h1>Create New Customer</h1>
+                <h1>Create New Contact</h1>
+                <h5 class="text-muted">for {{ $customer->name }}</h5>
             </div>
             <div class="col-md-6 text-end">
-                <a href="{{ route('customers.index') }}" class="btn btn-secondary">Back to List</a>
+                <a href="{{ route('customers.contacts.index', $customer->id) }}" class="btn btn-secondary">Back to Contacts</a>
             </div>
         </div>
 
@@ -29,7 +30,7 @@
 
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('customers.store') }}" method="POST">
+                <form action="{{ route('customers.contacts.store', $customer->id) }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
@@ -55,37 +56,8 @@
                         @enderror
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="location" class="form-label">Location</label>
-                                <input type="text" class="form-control @error('location') is-invalid @enderror" id="location" name="location" value="{{ old('location') }}">
-                                @error('location')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="category" class="form-label">Category</label>
-                                <input type="text" class="form-control @error('category') is-invalid @enderror" id="category" name="category" value="{{ old('category') }}">
-                                @error('category')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Address</label>
-                        <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address" rows="3" required>{{ old('address') }}</textarea>
-                        @error('address')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
                     <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary">Create Customer</button>
+                        <button type="submit" class="btn btn-primary">Create Contact</button>
                     </div>
                 </form>
             </div>

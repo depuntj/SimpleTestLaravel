@@ -9,19 +9,24 @@ class Customer extends Model
 {
     use HasFactory;
 
-
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'name',
         'email',
         'phone',
         'address',
+        'location',
+        'category',
     ];
 
     public function contacts()
     {
         return $this->hasMany(Contact::class);
     }
-
 
     public function sales()
     {
